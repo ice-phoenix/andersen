@@ -129,7 +129,9 @@ protected:
 	Module* ParseAssembly(const char *Assembly)
 	{
 		SMDiagnostic Error;
-		M = parseAssemblyString(Assembly, Error, getGlobalContext());
+		M = std::unique_ptr<Module>{
+			ParseAssemblyString(Assembly, nullptr, Error, getGlobalContext())
+		};
 
 		std::string errMsg;
 		raw_string_ostream os(errMsg);
