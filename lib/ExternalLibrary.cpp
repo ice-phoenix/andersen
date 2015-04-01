@@ -40,6 +40,7 @@ static const char* noopFuncs[] = {
 	"llvm.lifetime.start", "llvm.lifetime.end", "llvm.stackrestore",
 	"memset", "llvm.memset.i32", "llvm.memset.p0i8.i32", "llvm.memset.i64",
 	"llvm.memset.p0i8.i64", "llvm.va_end",
+	"borealis.declare.", "borealis.value.",
 	// The following functions might not be NOOP. They need to be removed from this list in the future
 	"setrlimit", "getrlimit",
 	nullptr
@@ -52,6 +53,7 @@ static const char* mallocFuncs[] = {
 	"strdup", "strndup",
 	"getenv",
 	"memalign", "posix_memalign",
+	"borealis.alloc.", "borealis.malloc.",
 	nullptr
 };
 
@@ -95,6 +97,8 @@ static bool lookupName(const char* table[], const char* str)
 	for (unsigned i = 0; table[i] != nullptr; ++i)
 	{
 		if (strcmp(table[i], str) == 0)
+			return true;
+		if (std::string{str}.find(table[i]) == 0)
 			return true;
 	}
 	return false;
