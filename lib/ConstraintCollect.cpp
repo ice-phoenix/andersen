@@ -327,7 +327,8 @@ void Andersen::collectConstraintsForInstruction(const Instruction* inst)
 		}
 		default:
 		{
-			errs() << *inst << "\n";
+			// XXX Silence!
+			// errs() << *inst << "\n";
 			assert(!inst->getType()->isPointerTy() && "pointer-related inst not handled!");
 			break;
 		}
