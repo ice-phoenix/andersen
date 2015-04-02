@@ -48,7 +48,7 @@ static const char* noopFuncs[] = {
 	"borealis_nondet",
 	"borealis_set_property",
 
- 	"borealis.annotation.",
+	"borealis.annotation.",
 	"borealis.assert.",
 	"borealis.assume.",
 	"borealis.declare.",
