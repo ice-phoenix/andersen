@@ -41,10 +41,10 @@ static const char* noopFuncs[] = {
 	"memset", "llvm.memset.i32", "llvm.memset.p0i8.i32", "llvm.memset.i64",
 	"llvm.memset.p0i8.i64", "llvm.va_end",
 
+	// BOR
 	"borealis_action_defect",
 	"borealis_assert",
 	"borealis_assume",
-	"borealis_get_property",
 	"borealis_nondet",
 	"borealis_set_property",
 
@@ -68,6 +68,7 @@ static const char* mallocFuncs[] = {
 	"strdup", "strndup",
 	"getenv",
 	"memalign", "posix_memalign",
+	// BOR
 	"borealis.alloc.",
 	"borealis.malloc.",
 	nullptr
@@ -85,6 +86,8 @@ static const char* retArg0Funcs[] = {
 };
 
 static const char* retArg1Funcs[] = {
+	// BOR
+	"borealis_get_property",
 	// Actually the return value of signal() will NOT alias its second argument, but if you call it twice the return values may alias. We're making conservative assumption here
 	"signal",
 	nullptr
