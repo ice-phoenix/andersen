@@ -51,6 +51,7 @@ static const char* noopFuncs[] = {
 	"borealis.annotation.",
 	"borealis.assert.",
 	"borealis.assume.",
+	"borealis.consume.",
 	"borealis.declare.",
 	"borealis.global",
 	"borealis.nondet.",
