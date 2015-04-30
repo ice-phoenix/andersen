@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.8)
 project(andersen)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 find_package(LLVM REQUIRED CONFIG)
 
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")

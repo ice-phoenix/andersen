@@ -53,7 +53,7 @@ static const char* noopFuncs[] = {
 	"borealis.assume.",
 	"borealis.consume.",
 	"borealis.declare.",
-	"borealis.global",
+	"borealis.global.",
 	"borealis.nondet.",
 	"borealis.value.",
 
@@ -118,7 +118,9 @@ static bool lookupName(const char* table[], const char* str)
 	{
 		if (strcmp(table[i], str) == 0)
 			return true;
-		if (std::string{str}.find(table[i]) == 0)
+		auto&& t = std::string(table[i]);
+		auto&& s = std::string{str};
+		if ('.' == t.back() && 0 == s.find(t))
 			return true;
 	}
 	return false;
