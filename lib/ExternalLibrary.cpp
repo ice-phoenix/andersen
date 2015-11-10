@@ -55,6 +55,7 @@ static const char* noopFuncs[] = {
 	"borealis.declare.",
 	"borealis.global.",
 	"borealis.nondet.",
+	"borealis.unreachable.",
 	"borealis.value.",
 
 	// The following functions might not be NOOP. They need to be removed from this list in the future
