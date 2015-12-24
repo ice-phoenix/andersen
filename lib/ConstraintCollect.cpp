@@ -396,7 +396,7 @@ void Andersen::addConstraintForCall(ImmutableCallSite cs)
 		// For argument constraints, first search through all addr-taken functions: any function that takes can take as many variables is a potential candidate
 		const Module* M = cs.getInstruction()->getParent()->getParent()->getParent();
 		for (auto const& f: *M)
-		{
+			if(cs.getCalledValue()->getType() == f.getType()) {
 			NodeIndex funPtrIndex = nodeFactory.getValueNodeFor(&f);
 			if (funPtrIndex == AndersNodeFactory::InvalidIndex)
 				// Not an addr-taken function
@@ -414,7 +414,7 @@ void Andersen::addConstraintForCall(ImmutableCallSite cs)
 				{
 					// Pollute everything
 					for (ImmutableCallSite::arg_iterator itr = cs.arg_begin(), ite = cs.arg_end(); itr != ite; ++itr)
-					{
+						if(itr->get()->getType()->isPointerTy()) {
 						NodeIndex argIndex = nodeFactory.getValueNodeFor(*itr);
 						assert(argIndex != AndersNodeFactory::InvalidIndex && "Failed to find arg node!");
 						constraints.emplace_back(AndersConstraint::COPY, argIndex, nodeFactory.getUniversalPtrNode());

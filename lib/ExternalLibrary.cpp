@@ -115,14 +115,17 @@ static const char* convertFuncs[] = {
 
 static bool lookupName(const char* table[], const char* str)
 {
+	auto s = llvm::StringRef(str);
 	for (unsigned i = 0; table[i] != nullptr; ++i)
 	{
-		if (strcmp(table[i], str) == 0)
-			return true;
-		auto&& t = std::string(table[i]);
-		auto&& s = std::string{str};
-		if ('.' == t.back() && 0 == s.find(t))
-			return true;
+		auto t = llvm::StringRef(table[i]);
+		if(s.startswith(t)) return true;
+//		if (strcmp(table[i], str) == 0)
+//			return true;
+//		auto&& t = std::string(table[i]);
+//		auto&& s = std::string{str};
+//		if ('.' == t.back() && 0 == s.find(t))
+//			return true;
 	}
 	return false;
 }
@@ -154,7 +157,7 @@ bool Andersen::addConstraintForExternalLibrary(ImmutableCallSite cs, const Funct
 		if (ptrIndex == AndersNodeFactory::InvalidIndex)
 		{
 			// Must be something like posix_memalign()
-			if (cs.getCalledFunction()->getName() == "posix_memalign")
+			if (f->getName() == "posix_memalign")
 			{
 				ptrIndex = nodeFactory.getValueNodeFor(cs.getArgument(0));
 				assert(ptrIndex != AndersNodeFactory::InvalidIndex && "Failed to find arg0 node");
