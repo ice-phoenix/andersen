@@ -119,7 +119,8 @@ static bool lookupName(const char* table[], const char* str)
 	for (unsigned i = 0; table[i] != nullptr; ++i)
 	{
 		auto t = llvm::StringRef(table[i]);
-		if(s.startswith(t)) return true;
+		if (s == t) return true;
+		if (t.endswith(".") && s.startswith(t)) return true;
 //		if (strcmp(table[i], str) == 0)
 //			return true;
 //		auto&& t = std::string(table[i]);
